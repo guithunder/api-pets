@@ -206,22 +206,6 @@ uvicorn app.main:app --host 0.0.0.0 --port 10000
 
 * Variáveis de ambiente configuradas pelo painel do Render
 
----
-
-# 📌 Checklist do Professor
-
-| Requisito                        | Status |
-| -------------------------------- | ------ |
-| CRUD completo                    | ✅      |
-| Organização de pastas            | ✅      |
-| Validações e tratamento de erros | ✅      |
-| Retornos JSON apropriados        | ✅      |
-| Uso de Supabase                  | ✅      |
-| Deploy no Render                 | ✅      |
-| Repositório GitHub               | ✅      |
-| README completo                  | ✅      |
-
----
 
 # 🧑‍💻 Autor
 
