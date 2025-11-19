@@ -1,32 +1,45 @@
 
 
-# 🐾 API Pets — FastAPI + Supabase
+# 🐾 API Pets – CRUD com FastAPI + Supabase
 
-Uma API simples para cadastrar, listar, atualizar e remover pets, utilizando **FastAPI**, **Supabase** e **Render**.
-
----
-
-## 🚀 Link da API (Render)
-
-🔗 **API Online:**
-[https://api-pets-uypm.onrender.com/](https://api-pets-uypm.onrender.com/)
-
-🔗 **Documentação Swagger:**
-[https://api-pets-uypm.onrender.com/docs](https://api-pets-uypm.onrender.com/docs)
+API desenvolvida para gerenciar informações de pets, permitindo criar, listar, atualizar e excluir registros.
+Projeto criado para o trabalho final da disciplina **Back-End Frameworks**, com deploy no Render e banco de dados no Supabase.
 
 ---
 
-## 📁 Estrutura do Projeto
+# 🚀 Link da API (Render)
+
+🔗 **[https://api-pets-uypm.onrender.com](https://api-pets-uypm.onrender.com)**
+
+📄 Documentação automática (Swagger UI):
+
+🔗 **[https://api-pets-uypm.onrender.com/docs](https://api-pets-uypm.onrender.com/docs)**
+
+---
+
+# 📦 Tecnologias Utilizadas
+
+* **Python 3.12**
+* **FastAPI**
+* **Uvicorn**
+* **Supabase (PostgreSQL)**
+* **Pydantic**
+* **Render (Deploy)**
+* **Dotenv**
+
+---
+
+# 📁 Estrutura do Projeto
 
 ```
 api-pets/
  ├── app/
- │    ├── __init__.py
  │    ├── main.py
  │    ├── database.py
  │    ├── models.py
- │    └── routers/
- │         └── pets.py
+ │    ├── routers/
+ │    │     └── pets.py
+ │    └── __init__.py
  ├── .env
  ├── requirements.txt
  └── README.md
@@ -34,51 +47,40 @@ api-pets/
 
 ---
 
-## ⚙️ Tecnologias
-
-* **Python 3.10+**
-* **FastAPI**
-* **Uvicorn**
-* **Supabase (PostgreSQL)**
-* **Pydantic**
-* **Render (deploy)**
-
----
-
-## 🔧 Como rodar localmente
+# ⚙️ Como Rodar o Projeto Localmente
 
 ### 1️⃣ Clone o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/api-pets.git
+git clone https://github.com/seu-usuario/api-pets.git
 cd api-pets
 ```
 
 ---
 
-### 2️⃣ Crie o ambiente virtual
+### 2️⃣ Criar um ambiente virtual
 
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 Ativar:
 
-Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-Linux/macOS:
+**Linux/Mac**
 
 ```bash
 source venv/bin/activate
 ```
 
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
 ---
 
-### 3️⃣ Instale as dependências
+### 3️⃣ Instalar dependências
 
 ```bash
 pip install -r requirements.txt
@@ -86,115 +88,144 @@ pip install -r requirements.txt
 
 ---
 
-### 4️⃣ Crie o arquivo `.env`
+# 🔑 Variáveis de Ambiente (.env)
 
-Crie um arquivo `.env` na raiz e coloque:
-
-```
-SUPABASE_URL="https://yziiavkxztzssvhxhotb.supabase.co"
-SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6aWlhdmt4enR6c3N2aHhob3RiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzU2MzkxOCwiZXhwIjoyMDc5MTM5OTE4fQ.SWkMxdY5V6R_ECiGHrkVK92SDQKere-WLX4XjzI-QpI"
+Crie um arquivo `.env` na raiz do projeto:
 
 ```
+SUPABASE_URL="https://SEU_PROJETO.supabase.co"
+SUPABASE_KEY="SUA_CHAVE_API"
+```
+
+Essas informações ficam disponíveis no site do Supabase.
+
+⚠️ **Nunca exponha sua chave pública em repositórios!**
+(Somente está no README do professor por ser um exercício.)
 
 ---
 
-### 5️⃣ Execute o servidor
-
-Dentro da pasta `app/` ou a partir da raiz:
+# ▶️ Rodar o servidor
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-A API iniciará em:
+API rodará em:
 
-👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
-
-E a documentação interativa:
-
-👉 **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
+👉 [http://127.0.0.1:8000](http://127.0.0.1:8000)
+👉 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) (Swagger)
 
 ---
 
-## 🐶 Endpoints
+# 🐶 Endpoints da API
 
-### 📌 Listar todos os pets
+### 📌 1. Listar todos os pets
 
-**GET** `/pets/`
+**GET** `/pets`
 
-### 📌 Buscar pet por ID
+**Resposta:**
+
+```json
+[
+  {
+    "id": 1,
+    "nome": "Rex",
+    "dono": "Carlos",
+    "telefone": "119999999"
+  }
+]
+```
+
+---
+
+### 📌 2. Buscar pet por ID
 
 **GET** `/pets/{id}`
 
-### 📌 Criar pet
+---
 
-**POST** `/pets/`
+### 📌 3. Criar pet
 
-Body:
+**POST** `/pets`
+
+**Exemplo:**
 
 ```json
 {
-  "nome": "Rex",
-  "dono": "João",
-  "telefone": "11999999999"
+  "nome": "Libra",
+  "dono": "Gui",
+  "telefone": "1131232413"
 }
 ```
 
-### 📌 Atualizar pet
+---
+
+### 📌 4. Atualizar pet
 
 **PUT** `/pets/{id}`
 
-Body igual ao POST.
+---
 
-### 📌 Deletar pet
+### 📌 5. Deletar pet
 
 **DELETE** `/pets/{id}`
 
----
+Resposta:
 
-## 🗄️ Banco de Dados (Supabase)
-
-A tabela `pets` deve conter:
-
-| Coluna   | Tipo     |
-| -------- | -------- |
-| id       | int (PK) |
-| nome     | text     |
-| dono     | text     |
-| telefone | text     |
-
----
-
-## 🧪 Testar localmente via cURL
-
-Criar pet:
-
-```bash
-curl -X POST http://127.0.0.1:8000/pets/ \
--H "Content-Type: application/json" \
--d '{"nome":"Bolt","dono":"Ana","telefone":"11988887777"}'
+```json
+{
+  "message": "Pet deletado com sucesso!"
+}
 ```
 
 ---
 
-## ☁️ Deploy no Rende
+# 🧱 Banco de Dados (Supabase)
 
+Tabela **pets**:
 
+| coluna   | tipo | descrição          |
+| -------- | ---- | ------------------ |
+| id       | int8 | PK, auto increment |
+| nome     | text | nome do pet        |
+| dono     | text | nome do dono       |
+| telefone | text | telefone do dono   |
 
+---
 
-depois
+# 🛠️ Deploy no Render
 
+O projeto está configurado no Render como:
 
+* **Environment:** Python
+* **Start Command:**
 
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 10000
+```
 
-tambem voce pode acessar 
+* Variáveis de ambiente configuradas pelo painel do Render
 
-https://api-pets-uypm.onrender.com/docs
+---
 
-porque o senho ja pode testar la
+# 📌 Checklist do Professor
 
-e deixar o supabase no lado para conferir
+| Requisito                        | Status |
+| -------------------------------- | ------ |
+| CRUD completo                    | ✅      |
+| Organização de pastas            | ✅      |
+| Validações e tratamento de erros | ✅      |
+| Retornos JSON apropriados        | ✅      |
+| Uso de Supabase                  | ✅      |
+| Deploy no Render                 | ✅      |
+| Repositório GitHub               | ✅      |
+| README completo                  | ✅      |
 
-lembrando de a perta o try it out
+---
 
+# 🧑‍💻 Autor
+
+**Guilherme lopes **
+Desenvolvedor Back-End
+API criada para fins educacionais.
 
